@@ -1,0 +1,1406 @@
+openapi: 3.1.0
+info:
+  title: FastAPI
+  version: 0.1.0
+paths:
+  /auth/login:
+    post:
+      tags:
+        - authentication
+      summary: Login
+      operationId: login_auth_login_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /auth/register:
+    post:
+      tags:
+        - authentication
+      summary: Register
+      operationId: register_auth_register_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /auth/me:
+    get:
+      tags:
+        - authentication
+      summary: Get Me
+      operationId: get_me_auth_me_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+        - HTTPBearer: []
+  /subjects/:
+    get:
+      tags:
+        - subjects
+      summary: Get Subjects
+      operationId: get_subjects_subjects__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SubjectRequest'
+                type: array
+                title: Response Get Subjects Subjects  Get
+    post:
+      tags:
+        - subjects
+      summary: Create Subject
+      operationId: create_subject_subjects__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubjectRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /subjects/{subject_id}:
+    get:
+      tags:
+        - subjects
+      summary: Get Subjects
+      operationId: get_subjects_subjects__subject_id__get
+      parameters:
+        - name: subject_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: Subject Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubjectRequest'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /subjects/{subject_id}/weeks:
+    get:
+      tags:
+        - subjects
+      summary: Get Weeks
+      operationId: get_weeks_subjects__subject_id__weeks_get
+      parameters:
+        - name: subject_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: Subject Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WeekResponse'
+                title: Response Get Weeks Subjects  Subject Id  Weeks Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /subjects/user-subjects/:
+    post:
+      tags:
+        - subjects
+      summary: Assign Subject To User
+      operationId: assign_subject_to_user_subjects_user_subjects__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSubjectRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /subjects/user-subjects/{user_id}:
+    get:
+      tags:
+        - subjects
+      summary: Get User Subjects
+      operationId: get_user_subjects_subjects_user_subjects__user_id__get
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserSubjectRequest'
+                title: >-
+                  Response Get User Subjects Subjects User Subjects  User Id 
+                  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /weeks/:
+    post:
+      tags:
+        - weeks
+      summary: Create Week
+      operationId: create_week_weeks__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WeekRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: Response Create Week Weeks  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /weeks/{week_id}:
+    get:
+      tags:
+        - weeks
+      summary: Get Weeks For Subject
+      operationId: get_weeks_for_subject_weeks__week_id__get
+      parameters:
+        - name: week_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: Week Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeekResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /weeks/{week_id}/lectures:
+    get:
+      tags:
+        - weeks
+      summary: Get Weeks For Subject
+      operationId: get_weeks_for_subject_weeks__week_id__lectures_get
+      parameters:
+        - name: week_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: Week Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LectureResponse'
+                title: Response Get Weeks For Subject Weeks  Week Id  Lectures Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /lectures/:
+    get:
+      tags:
+        - lectures
+      summary: Get Lectures
+      operationId: get_lectures_lectures__get
+      parameters:
+        - name: week_id
+          in: query
+          required: false
+          schema:
+            anyOf:
+              - type: integer
+              - type: 'null'
+            title: Week Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LectureResponse'
+                title: Response Get Lectures Lectures  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+        - lectures
+      summary: Create Lecture
+      operationId: create_lecture_lectures__post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LectureRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LectureResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /lectures/{lecture_id}/chats:
+    get:
+      tags:
+        - lectures
+      summary: Get Chat History For Lecture
+      operationId: get_chat_history_for_lecture_lectures__lecture_id__chats_get
+      parameters:
+        - name: lecture_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: Lecture Id
+        - name: user_id
+          in: query
+          required: false
+          schema:
+            anyOf:
+              - type: integer
+              - type: 'null'
+            title: User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChatResponse'
+                title: >-
+                  Response Get Chat History For Lecture Lectures  Lecture Id 
+                  Chats Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /lectures/relevant-content/{lecture_id}:
+    get:
+      tags:
+        - lectures
+      summary: Get Relevant Content
+      operationId: get_relevant_content_lectures_relevant_content__lecture_id__get
+      parameters:
+        - name: lecture_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: Lecture Id
+        - name: user_id
+          in: query
+          required: false
+          schema:
+            anyOf:
+              - type: integer
+              - type: 'null'
+            title: User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RelevantContentResponse'
+                title: >-
+                  Response Get Relevant Content Lectures Relevant Content 
+                  Lecture Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /lectures/relevant-content/:
+    post:
+      tags:
+        - lectures
+      summary: Add Relevant Content
+      operationId: add_relevant_content_lectures_relevant_content__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RelevantContentRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RelevantContentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /videos/:
+    get:
+      tags:
+        - videos
+      summary: Get Videos
+      operationId: get_videos_videos__get
+      parameters:
+        - name: week_id
+          in: query
+          required: false
+          schema:
+            anyOf:
+              - type: integer
+              - type: 'null'
+            title: Week Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VideoResponse'
+                title: Response Get Videos Videos  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+        - videos
+      summary: Create Video
+      operationId: create_video_videos__post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VideoRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /assignments/:
+    get:
+      tags:
+        - assignments
+      summary: Get Assignments
+      operationId: get_assignments_assignments__get
+      parameters:
+        - name: week_id
+          in: query
+          required: false
+          schema:
+            anyOf:
+              - type: integer
+              - type: 'null'
+            title: Week Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssignmentResponse'
+                title: Response Get Assignments Assignments  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+        - assignments
+      summary: Create Assignment
+      operationId: create_assignment_assignments__post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignmentRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /chats/{lecture_id}:
+    get:
+      tags:
+        - chats
+      summary: Get Chat History
+      operationId: get_chat_history_chats__lecture_id__get
+      parameters:
+        - name: lecture_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: Lecture Id
+        - name: user_id
+          in: query
+          required: false
+          schema:
+            anyOf:
+              - type: integer
+              - type: 'null'
+            title: User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChatResponse'
+                title: Response Get Chat History Chats  Lecture Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /chats/:
+    post:
+      tags:
+        - chats
+      summary: Send Message
+      operationId: send_message_chats__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /dashboards/student_dashboard:
+    get:
+      tags:
+        - dashboards
+      summary: Get Dashboard Data
+      description: |-
+        Returns mock data for rendering the dashboard.
+        In a real application, this would fetch data from the database.
+      operationId: get_dashboard_dashboards_student_dashboard_get
+      security:
+        - HTTPBearer: []
+      parameters:
+        - name: user_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            title: User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /dashboards/teacher_dashboard:
+    get:
+      tags:
+        - dashboards
+      summary: Get Teacher Dashboard
+      operationId: get_teacher_dashboard_dashboards_teacher_dashboard_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /dashboards/admin_dashboard:
+    get:
+      tags:
+        - dashboards
+      summary: Get Admin Dashboard
+      operationId: get_admin_dashboard_dashboards_admin_dashboard_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /users/profile/{user_id}:
+    get:
+      tags:
+        - users
+      summary: Get User Profile
+      operationId: get_user_profile_users_profile__user_id__get
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+        - users
+      summary: Update User Profile
+      operationId: update_user_profile_users_profile__user_id__post
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: User Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfileRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /users/settings:
+    get:
+      tags:
+        - users
+      summary: Get System Settings
+      operationId: get_system_settings_users_settings_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingsResponse'
+    post:
+      tags:
+        - users
+      summary: Update System Settings
+      operationId: update_system_settings_users_settings_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettingsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /:
+    get:
+      summary: Root
+      operationId: root__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+components:
+  schemas:
+    AssignmentRequest:
+      properties:
+        week_id:
+          type: integer
+          title: Week Id
+        sequence_no:
+          type: integer
+          title: Sequence No
+        name:
+          type: string
+          title: Name
+        content:
+          type: object
+          title: Content
+      type: object
+      required:
+        - week_id
+        - sequence_no
+        - name
+        - content
+      title: AssignmentRequest
+    AssignmentResponse:
+      properties:
+        week_id:
+          type: integer
+          title: Week Id
+        sequence_no:
+          type: integer
+          title: Sequence No
+        name:
+          type: string
+          title: Name
+        content:
+          type: object
+          title: Content
+        id:
+          type: integer
+          title: Id
+        created_at:
+          type: string
+          title: Created At
+      type: object
+      required:
+        - week_id
+        - sequence_no
+        - name
+        - content
+        - id
+        - created_at
+      title: AssignmentResponse
+    ChatRequest:
+      properties:
+        lecture_id:
+          type: integer
+          title: Lecture Id
+        user_id:
+          type: integer
+          title: User Id
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+        - lecture_id
+        - user_id
+        - message
+      title: ChatRequest
+    ChatResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        chat_id:
+          type: integer
+          title: Chat Id
+        sender:
+          type: string
+          title: Sender
+        message:
+          type: string
+          title: Message
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+        - id
+        - chat_id
+        - sender
+        - message
+        - created_at
+      title: ChatResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    LectureRequest:
+      properties:
+        week_id:
+          type: integer
+          title: Week Id
+        sequence_no:
+          type: integer
+          title: Sequence No
+        name:
+          type: string
+          title: Name
+        type:
+          type: string
+          title: Type
+        url:
+          anyOf:
+            - type: string
+              maxLength: 2083
+              minLength: 1
+              format: uri
+            - type: 'null'
+          title: Url
+        video_id:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Video Id
+        content:
+          anyOf:
+            - type: object
+            - type: 'null'
+          title: Content
+      type: object
+      required:
+        - week_id
+        - sequence_no
+        - name
+        - type
+      title: LectureRequest
+    LectureResponse:
+      properties:
+        week_id:
+          type: integer
+          title: Week Id
+        sequence_no:
+          type: integer
+          title: Sequence No
+        name:
+          type: string
+          title: Name
+        type:
+          type: string
+          title: Type
+        url:
+          anyOf:
+            - type: string
+              maxLength: 2083
+              minLength: 1
+              format: uri
+            - type: 'null'
+          title: Url
+        video_id:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Video Id
+        content:
+          anyOf:
+            - type: object
+            - type: 'null'
+          title: Content
+        id:
+          type: integer
+          title: Id
+        created_at:
+          type: string
+          title: Created At
+      type: object
+      required:
+        - week_id
+        - sequence_no
+        - name
+        - type
+        - id
+        - created_at
+      title: LectureResponse
+    LoginRequest:
+      properties:
+        email:
+          type: string
+          title: Email
+        password:
+          type: string
+          title: Password
+      type: object
+      required:
+        - email
+        - password
+      title: LoginRequest
+    Message:
+      properties:
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+        - message
+      title: Message
+    RegisterRequest:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        password:
+          type: string
+          title: Password
+        name:
+          type: string
+          title: Name
+        role:
+          type: string
+          title: Role
+      type: object
+      required:
+        - email
+        - password
+        - name
+        - role
+      title: RegisterRequest
+    RelevantContentRequest:
+      properties:
+        lecture_id:
+          type: integer
+          title: Lecture Id
+        user_id:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: User Id
+        content_type:
+          type: string
+          title: Content Type
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Description
+        url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Url
+      type: object
+      required:
+        - lecture_id
+        - content_type
+        - title
+        - url
+      title: RelevantContentRequest
+    RelevantContentResponse:
+      properties:
+        lecture_id:
+          type: integer
+          title: Lecture Id
+        user_id:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: User Id
+        content_type:
+          type: string
+          title: Content Type
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Description
+        url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Url
+        id:
+          type: integer
+          title: Id
+        created_at:
+          type: string
+          title: Created At
+      type: object
+      required:
+        - lecture_id
+        - content_type
+        - title
+        - url
+        - id
+        - created_at
+      title: RelevantContentResponse
+    SettingsRequest:
+      properties:
+        api_base_url:
+          anyOf:
+            - type: string
+              maxLength: 2083
+              minLength: 1
+              format: uri
+            - type: 'null'
+          title: Api Base Url
+        api_key:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Api Key
+        model_name:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Model Name
+        temperature:
+          anyOf:
+            - type: number
+            - type: 'null'
+          title: Temperature
+        max_tokens:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: Max Tokens
+        dark_mode:
+          anyOf:
+            - type: boolean
+            - type: 'null'
+          title: Dark Mode
+        notifications_enabled:
+          anyOf:
+            - type: boolean
+            - type: 'null'
+          title: Notifications Enabled
+        response_speed:
+          anyOf:
+            - type: number
+            - type: 'null'
+          title: Response Speed
+        streaming_mode:
+          anyOf:
+            - type: boolean
+            - type: 'null'
+          title: Streaming Mode
+      type: object
+      title: SettingsRequest
+    SettingsResponse:
+      properties:
+        api_base_url:
+          anyOf:
+            - type: string
+              maxLength: 2083
+              minLength: 1
+              format: uri
+            - type: 'null'
+          title: Api Base Url
+        api_key:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Api Key
+        model_name:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Model Name
+        temperature:
+          anyOf:
+            - type: number
+            - type: 'null'
+          title: Temperature
+        max_tokens:
+          anyOf:
+            - type: integer
+            - type: 'null'
+          title: Max Tokens
+        dark_mode:
+          anyOf:
+            - type: boolean
+            - type: 'null'
+          title: Dark Mode
+        notifications_enabled:
+          anyOf:
+            - type: boolean
+            - type: 'null'
+          title: Notifications Enabled
+        response_speed:
+          anyOf:
+            - type: number
+            - type: 'null'
+          title: Response Speed
+        streaming_mode:
+          anyOf:
+            - type: boolean
+            - type: 'null'
+          title: Streaming Mode
+        id:
+          type: integer
+          title: Id
+        created_at:
+          type: string
+          title: Created At
+      type: object
+      required:
+        - id
+        - created_at
+      title: SettingsResponse
+    SubjectRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+        - name
+      title: SubjectRequest
+    UserProfileRequest:
+      properties:
+        bio:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Bio
+        profile_picture:
+          anyOf:
+            - type: string
+              maxLength: 2083
+              minLength: 1
+              format: uri
+            - type: 'null'
+          title: Profile Picture
+        dark_mode:
+          anyOf:
+            - type: boolean
+            - type: 'null'
+          title: Dark Mode
+        notifications_enabled:
+          anyOf:
+            - type: boolean
+            - type: 'null'
+          title: Notifications Enabled
+      type: object
+      title: UserProfileRequest
+    UserProfileResponse:
+      properties:
+        bio:
+          anyOf:
+            - type: string
+            - type: 'null'
+          title: Bio
+        profile_picture:
+          anyOf:
+            - type: string
+              maxLength: 2083
+              minLength: 1
+              format: uri
+            - type: 'null'
+          title: Profile Picture
+        dark_mode:
+          anyOf:
+            - type: boolean
+            - type: 'null'
+          title: Dark Mode
+        notifications_enabled:
+          anyOf:
+            - type: boolean
+            - type: 'null'
+          title: Notifications Enabled
+        user_id:
+          type: integer
+          title: User Id
+        created_at:
+          type: string
+          title: Created At
+      type: object
+      required:
+        - user_id
+        - created_at
+      title: UserProfileResponse
+    UserSubjectRequest:
+      properties:
+        user_id:
+          type: integer
+          title: User Id
+        subject_id:
+          type: integer
+          title: Subject Id
+      type: object
+      required:
+        - user_id
+        - subject_id
+      title: UserSubjectRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      title: ValidationError
+    VideoRequest:
+      properties:
+        week_id:
+          type: integer
+          title: Week Id
+        sequence_no:
+          type: integer
+          title: Sequence No
+        name:
+          type: string
+          title: Name
+        url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Url
+      type: object
+      required:
+        - week_id
+        - sequence_no
+        - name
+        - url
+      title: VideoRequest
+    VideoResponse:
+      properties:
+        week_id:
+          type: integer
+          title: Week Id
+        sequence_no:
+          type: integer
+          title: Sequence No
+        name:
+          type: string
+          title: Name
+        url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: Url
+        id:
+          type: integer
+          title: Id
+        created_at:
+          type: string
+          title: Created At
+      type: object
+      required:
+        - week_id
+        - sequence_no
+        - name
+        - url
+        - id
+        - created_at
+      title: VideoResponse
+    WeekRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        subject_id:
+          type: integer
+          title: Subject Id
+      type: object
+      required:
+        - name
+        - subject_id
+      title: WeekRequest
+    WeekResponse:
+      properties:
+        name:
+          type: string
+          title: Name
+        subject_id:
+          type: integer
+          title: Subject Id
+        id:
+          type: integer
+          title: Id
+      type: object
+      required:
+        - name
+        - subject_id
+        - id
+      title: WeekResponse
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
